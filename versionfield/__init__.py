@@ -23,11 +23,18 @@ class VersionField(models.PositiveIntegerField):
 		if isinstance(value,basestring):
 			return Version(value,self.number_bits)
 
+		if value is None:
+			return None
+
 		return Version(convert_version_int_to_string(value,self.number_bits),self.number_bits)
 
 	def get_prep_value(self,value):
 		if isinstance(value,basestring):
 			return int(Version(value,self.number_bits))
+
+		if value is None:
+			return None
+
 		return int(value)
 
 
