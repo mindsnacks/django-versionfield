@@ -19,7 +19,7 @@ class VersionField(models.PositiveIntegerField):
 	def to_python(self,value):
 		if isinstance(value, Version):
 			return Version
-		
+
 		if isinstance(value,basestring):
 			return Version(value,self.number_bits)
 
@@ -29,3 +29,20 @@ class VersionField(models.PositiveIntegerField):
 		if isinstance(value,basestring):
 			return int(Version(value,self.number_bits))
 		return int(value)
+
+
+try:
+	from south.modelsinspector import add_introspection_rules
+	rules = [
+		(
+			(VersionField,),
+			[],
+			{
+				"number_bits": ["number_bits", {"default": DEFAULT_NUMBER_BITS}],
+			},
+		)
+	]
+	add_introspection_rules(rules, ["^versionfield"])
+except ImportError:
+	# looks like we aren't using south
+	pass
