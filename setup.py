@@ -12,7 +12,7 @@ import os
 
 setup(
     name = "django-versionfield",
-    version = "0.2",
+    version = "0.3",
     url = 'https://github.com/mindsnacks/django-versionfield',
     license = 'BSD',
     description = "A DB Independent Custom Django Field for storing Version numbers for fast indexing",

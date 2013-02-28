@@ -16,6 +16,8 @@ class Version(object):
 		return self.internal_integer
 
 	def __eq__(self,other):
+		if other is None or other == '':
+			return False # we are obviously a valid Version, but 'other' isn't
 		if isinstance(other,basestring):
 			return self == Version(other,self.number_bits)
 		else:
