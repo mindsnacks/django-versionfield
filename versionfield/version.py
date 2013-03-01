@@ -10,13 +10,19 @@ class Version(object):
 		self.internal_integer = convert_version_string_to_int(string,number_bits)
 
 	def __unicode__(self):
-		return convert_version_int_to_string(self.internal_integer,self.number_bits)
+		return unicode(convert_version_int_to_string(self.internal_integer,self.number_bits))
+
+	def __str__(self):
+		return self.__unicode__()
+
+	def __repr__(self):
+		return self.__unicode__()
 
 	def __int__(self):
 		return self.internal_integer
 
 	def __eq__(self,other):
-		if other is None or other == '':
+		if not other:
 			return False # we are obviously a valid Version, but 'other' isn't
 		if isinstance(other,basestring):
 			return self == Version(other,self.number_bits)

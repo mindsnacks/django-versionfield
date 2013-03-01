@@ -37,6 +37,10 @@ class VersionField(models.PositiveIntegerField):
 
 		return int(value)
 
+	def __unicode__(self, value):
+		return unicode(value)
+
+
 
 try:
 	from south.modelsinspector import add_introspection_rules
