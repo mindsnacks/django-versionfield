@@ -20,7 +20,7 @@ class VersionField(models.PositiveIntegerField):
 
 	def to_python(self,value):
 		if isinstance(value, Version):
-			return Version
+			return value
 
 		if isinstance(value,basestring):
 			return Version(value,self.number_bits)
