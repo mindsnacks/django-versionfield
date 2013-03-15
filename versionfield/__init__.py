@@ -2,6 +2,8 @@ from django.db import models
 from .constants import DEFAULT_NUMBER_BITS
 from .version import Version
 from utils import convert_version_string_to_int, convert_version_int_to_string
+import forms
+
 
 class VersionField(models.PositiveIntegerField):
 	"""
@@ -18,7 +20,7 @@ class VersionField(models.PositiveIntegerField):
 
 	def to_python(self,value):
 		if isinstance(value, Version):
-			return Version
+			return value
 
 		if isinstance(value,basestring):
 			return Version(value,self.number_bits)
@@ -36,6 +38,14 @@ class VersionField(models.PositiveIntegerField):
 			return None
 
 		return int(value)
+
+	def formfield(self, **kwargs):
+		defaults = {
+			'form_class': forms.VersionField,
+			'number_bits': self.number_bits
+		}
+		defaults.update(kwargs)
+		return super(VersionField, self).formfield(**defaults)
 
 	def __unicode__(self, value):
 		return unicode(value)
