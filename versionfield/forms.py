@@ -12,10 +12,10 @@ class VersionField(forms.IntegerField):
 		"""
 		Verifies that value can be converted to a Version object
 		"""
-		if isinstance(value,basestring):
-			return Version(value,self.number_bits)
-
-		if value is None:
+		if not value:
 			return None
+
+		if isinstance(value,basestring):
+			return Version(value,self.number_bits)		
 
 		return Version(convert_version_int_to_string(value,self.number_bits),self.number_bits)
